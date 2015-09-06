@@ -1,0 +1,272 @@
+% Created 2015-09-06 日 12:00
+\documentclass[11pt,a4paper]{sphinxmanual}
+\usepackage{}
+\usepackage{sphinx}
+\author{wanze}
+\date{\today}
+\title{shadowsocks reference}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={制作者邮箱：a358003542@gmail.com},
+  pdfcreator={编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+
+\chapter{前言}
+\label{sec-1}
+基本内容是来自 \href{https://github.com/shadowsocks/shadowsocks/wiki}{shadowsocks的wiki} 。
+
+\chapter{Getting Started}
+\label{sec-2}
+
+\section{Shadowsocks 使用说明}
+\label{sec-2-1}
+一个可穿透防火墙的快速代理。
+
+\subsection{服务器}
+\label{sec-2-1-1}
+\subsubsection{安装}
+\label{sec-2-1-1-1}
+Debian / Ubuntu:
+\begin{minted}[]{bash}
+apt-get install python-pip
+pip install shadowsocks
+\end{minted}
+
+CentOS:
+\begin{minted}[]{sh}
+yum install python-setuptools && easy_install pip
+pip install shadowsocks
+\end{minted}
+
+Windows:
+
+Server deployment on Windows is discouraged, since the select API performs very poor. If you want to serve many users, you should always set up your server on Linux. Please visit README for more details.
+
+\begin{enumerate}
+\item Download and install Python for Windows, you can download x86-64 MSI installer in 64bit Windows.
+\item During installation you should install pip
+\item Install \href{https://slproweb.com/products/Win32OpenSSL.html}{OpenSSL for Windows} . If you installed 64bit Python, you should install 64bit OpenSSL.
+\item Install shadowsocks like Linux. In Command Prompt, type command line
+\end{enumerate}
+
+\begin{Verbatim}
+pip install shadowsocks
+\end{Verbatim}
+
+\begin{enumerate}
+\item If you want to use \verb~salsa20~ or \verb~chacha20~ encryption, download \href{http://download.libsodium.org/libsodium/releases/}{libsodium} and put dll files (without path) into \verb~C:\Windows\System32~ or \verb~C:\Windows\SysWOW64~ (32bit Python on 64bit Windows).
+\end{enumerate}
+
+
+
+
+\subsubsection{使用}
+\label{sec-2-1-1-2}
+\begin{Verbatim}
+ssserver -p 443 -k password -m rc4-md5
+\end{Verbatim}
+
+如果要后台运行:
+\begin{Verbatim}
+sudo ssserver -p 443 -k password -m rc4-md5 --user nobody -d start
+\end{Verbatim}
+
+如果要停止:
+\begin{Verbatim}
+sudo ssserver -d stop
+\end{Verbatim}
+
+如果要检查日志：
+\begin{Verbatim}
+sudo less /var/log/shadowsocks.log
+\end{Verbatim}
+
+用 \verb~-h~ 查看所有参数。你也可以使用 配置文件 进行配置。 ???配置文件引用
+
+\subsection{服务器搭建}
+\label{sec-2-1-2}
+建议选择 Ubuntu 14.04 LTS 作为服务器以便使用 TCP Fast Open。除非有明确理由，不建议用对新手不友好的 CentOS。
+
+为了更好的性能，VPS 尽量选择 XEN 或 KVM，不要使用 OpenVZ。推荐使用以下 VPS：
+
+\begin{itemize}
+\item Digital Ocean 自带的内核无需自己编译模块即可使用 hybla 算法
+\item Linode 功能强大，机房较多
+\end{itemize}
+
+
+\chapter{Ports and Clients}
+\label{sec-3}
+
+\chapter{Optimizing Shadowsocks}
+\label{sec-4}
+If you see a lot of \verb~error: too many open files~ in your log, you should optimize your system. This tutorial applies to all shadowsocks servers (Python, libev, etc).
+
+On Debian 7:
+
+Create \verb~/etc/sysctl.d/local.conf~ with the following content:
+
+\begin{Verbatim}
+# max open files
+fs.file-max = 51200
+# max read buffer
+net.core.rmem_max = 67108864
+# max write buffer
+net.core.wmem_max = 67108864
+# default read buffer
+net.core.rmem_default = 65536
+# default write buffer
+net.core.wmem_default = 65536
+# max processor input queue
+net.core.netdev_max_backlog = 4096
+# max backlog
+net.core.somaxconn = 4096
+
+# resist SYN flood attacks
+net.ipv4.tcp_syncookies = 1
+# reuse timewait sockets when safe
+net.ipv4.tcp_tw_reuse = 1
+# turn off fast timewait sockets recycling
+net.ipv4.tcp_tw_recycle = 0
+# short FIN timeout
+net.ipv4.tcp_fin_timeout = 30
+# short keepalive time
+net.ipv4.tcp_keepalive_time = 1200
+# outbound port range
+net.ipv4.ip_local_port_range = 10000 65000
+# max SYN backlog
+net.ipv4.tcp_max_syn_backlog = 4096
+# max timewait sockets held by system simultaneously
+net.ipv4.tcp_max_tw_buckets = 5000
+# turn on TCP Fast Open on both client and server side
+net.ipv4.tcp_fastopen = 3
+# TCP receive buffer
+net.ipv4.tcp_rmem = 4096 87380 67108864
+# TCP write buffer
+net.ipv4.tcp_wmem = 4096 65536 67108864
+# turn on path MTU discovery
+net.ipv4.tcp_mtu_probing = 1
+
+# for high-latency network
+net.ipv4.tcp_congestion_control = hybla
+
+# for low-latency network, use cubic instead
+# net.ipv4.tcp_congestion_control = cubic
+\end{Verbatim}
+
+Then:
+\begin{Verbatim}
+sysctl --system
+\end{Verbatim}
+
+Older system:
+\begin{Verbatim}
+sysctl -p /etc/sysctl.d/local.conf
+\end{Verbatim}
+
+Warning: \textbf{DO NOT ENABLE} \verb~net.ipv4.tcp_tw_recycle~ !!! See this article.
+
+If you use Supervisor, Make sure you have the following line in \verb~/etc/default/supervisor~ . Once you added that line, restart Supervisor ( \verb~service stop supervisor && service start supervisor~ ).
+
+\begin{Verbatim}
+ulimit -n 51200
+\end{Verbatim}
+
+If you run shadowsocks in the background in other ways, make sure to add \verb~ulimit -n 51200~ in your init script.
+
+After optimizing, a busy Shadowsocks server that handles thousands of connections, takes about 30MB memory and 10\% CPU. Notice that at the same time, Linux kernel usually uses >100MB RAM to hold buffer and cache for those connections. By using the sysctl config above, you are trading off RAM for speed. If you want to use less RAM, reduce the size of rmem and wmem.
+
+
+\chapter{Configuration}
+\label{sec-5}
+\section{Configuration via Config File}
+\label{sec-5-1}
+You can use a configuration file instead of command line arguments.
+
+Create a config file \verb~/etc/shadowsocks.json~ . Example:
+
+\begin{minted}[]{json}
+{
+    "server":"my_server_ip",
+    "server_port":8388,
+    "local_address": "127.0.0.1",
+    "local_port":1080,
+    "password":"mypassword",
+    "timeout":300,
+    "method":"aes-256-cfb",
+    "fast_open": false
+}
+\end{minted}
+
+Explanation of the fields:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Name & Explantion\\
+\midrule
+server & the address your server listens\\
+server\_port & server port\\
+local\_address & the address your local listens\\
+local\_port & local port\\
+password & password used for encryption\\
+timeout & in seconds\\
+method & default: "aes-256-cfb", see Encryption\\
+fast\_open & use TCP\_FASTOPEN, true / false\\
+workers & number of workers, available on Unix/Linux\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+To run in the foreground:
+\begin{Verbatim}
+ssserver -c /etc/shadowsocks.json
+\end{Verbatim}
+
+
+To run in the background:
+\begin{Verbatim}
+ssserver -c /etc/shadowsocks.json -d start
+ssserver -c /etc/shadowsocks.json -d stop
+\end{Verbatim}
+
+
+\section{Configure Multiple Users}
+\label{sec-5-2}
+\label{sec:cmu}
+Currently Python and Go servers support multiple users.
+
+You can use different passwords on different ports like this:
+
+\begin{minted}[]{json}
+{
+    "server": "0.0.0.0",
+    "port_password": {
+        "8381": "foobar1",
+        "8382": "foobar2",
+        "8383": "foobar3",
+        "8384": "foobar4"
+    },
+    "timeout": 300,
+    "method": "aes-256-cfb"
+}
+\end{minted}
+
+If you want to build a user management system, check the Manager API.
+
+\chapter{Advanced Features}
+\label{sec-6}
+\section{Manage Multiple Users}
+\label{sec-6-1}
+If you want to build a user management system, Shadowsocks provides an API that allows you to add/remove ports on the fly, as well as get transfer statistics from Shadowsocks.
+
+If you simply want to add multiple users without changing them on the fly, you can check \hyperref[sec:cmu]{this tutorial} . 
+
+Notice: only Python and libev versions support this feature.
+% 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
+\end{document}

@@ -1,0 +1,16 @@
+#+LATEX_CLASS: sphinxmanual
+#+LATEX_CLASS_OPTIONS:[11pt,a4paper]
+#+LATEX_HEADER: \usepackage{sphinx}
+
+#+HTML_HEAD: <link rel="stylesheet"  href="http://a358003542.github.io/templates/main.css"/>
+
+
+#+TITLE: odooclient
+#+AUTHOR: wanze
+
+#+CREATOR: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+
+

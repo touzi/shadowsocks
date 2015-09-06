@@ -1,0 +1,1940 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>shadowsocks reference</title>
+<!-- 2015-09-06 日 13:30 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="原shadowsocks团队">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet"  href="http://a358003542.github.io/templates/main.css"/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">shadowsocks reference</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 前言</a></li>
+<li><a href="#sec-2">2. Shadowsocks 使用说明</a>
+<ul>
+<li><a href="#sec-2-1">2.1. 服务器</a>
+<ul>
+<li><a href="#sec-2-1-1">2.1.1. 安装</a></li>
+<li><a href="#sec-2-1-2">2.1.2. 使用</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-2">2.2. 服务器搭建</a></li>
+<li><a href="#sec-2-3">2.3. 客户端</a>
+<ul>
+<li><a href="#sec-2-3-1">2.3.1. Windows</a>
+<ul>
+<li><a href="#sec-2-3-1-1">2.3.1.1. 功能</a></li>
+<li><a href="#sec-2-3-1-2">2.3.1.2. 下载</a></li>
+<li><a href="#sec-2-3-1-3">2.3.1.3. 基本使用</a></li>
+<li><a href="#sec-2-3-1-4">2.3.1.4. PAC</a></li>
+<li><a href="#sec-2-3-1-5">2.3.1.5. 服务器自动切换</a></li>
+<li><a href="#sec-2-3-1-6">2.3.1.6. UDP</a></li>
+<li><a href="#sec-2-3-1-7">2.3.1.7. 多实例</a></li>
+<li><a href="#sec-2-3-1-8">2.3.1.8. 绿色模式</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-3-2">2.3.2. OS X</a>
+<ul>
+<li><a href="#sec-2-3-2-1">2.3.2.1. 下载</a></li>
+<li><a href="#sec-2-3-2-2">2.3.2.2. 基本使用</a></li>
+<li><a href="#sec-2-3-2-3">2.3.2.3. 高级使用</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-3-3">2.3.3. Android</a></li>
+<li><a href="#sec-2-3-4">2.3.4. openwrt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-3">3. Ports and Clients</a>
+<ul>
+<li><a href="#sec-3-1">3.1. windows</a></li>
+<li><a href="#sec-3-2">3.2. OS X</a></li>
+<li><a href="#sec-3-3">3.3. Linux / Server side</a></li>
+<li><a href="#sec-3-4">3.4. iOS</a></li>
+<li><a href="#sec-3-5">3.5. Android</a></li>
+<li><a href="#sec-3-6">3.6. OpenWRT</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. Optimizing Shadowsocks</a></li>
+<li><a href="#sec-5">5. Configuration</a>
+<ul>
+<li><a href="#sec-5-1">5.1. Configuration via Config File</a></li>
+<li><a href="#sec-5-2">5.2. Generate QR Code for Android or iOS Clients</a>
+<ul>
+<li><a href="#sec-5-2-1">5.2.1. Protocol</a></li>
+<li><a href="#sec-5-2-2">5.2.2. Generate via GUI clients</a></li>
+<li><a href="#sec-5-2-3">5.2.3. Generate via Command line</a></li>
+</ul>
+</li>
+<li><a href="#sec-5-3">5.3. Configure Multiple Users</a></li>
+<li><a href="#sec-5-4">5.4. Encryption</a>
+<ul>
+<li><a href="#sec-5-4-1">5.4.1. Supported Ciphers</a></li>
+<li><a href="#sec-5-4-2">5.4.2. rc4-md5</a></li>
+<li><a href="#sec-5-4-3">5.4.3. salsa20 and chacha20</a></li>
+<li><a href="#sec-5-4-4">5.4.4. Deprecated Ciphers</a></li>
+</ul>
+</li>
+<li><a href="#sec-5-5">5.5. TCP Fast Open</a></li>
+<li><a href="#sec-5-6">5.6. Using Workers</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6. Advanced Features</a>
+<ul>
+<li><a href="#sec-6-1">6.1. Manage Multiple Users</a>
+<ul>
+<li><a href="#sec-6-1-1">6.1.1. Setup</a></li>
+<li><a href="#sec-6-1-2">6.1.2. Protocol</a></li>
+<li><a href="#sec-6-1-3">6.1.3. Example Code</a></li>
+</ul>
+</li>
+<li><a href="#sec-6-2">6.2. Securing Public Server</a></li>
+<li><a href="#sec-6-3">6.3. Convert Shadowsocks into an HTTP proxy</a></li>
+<li><a href="#sec-6-4">6.4. Using Shadowsocks with Command Line Tools</a></li>
+<li><a href="#sec-6-5">6.5. Setup a Shadowsocks Relay</a>
+<ul>
+<li><a href="#sec-6-5-1">6.5.1. Easy version</a></li>
+<li><a href="#sec-6-5-2">6.5.2. Better version</a></li>
+</ul>
+</li>
+<li><a href="#sec-6-6">6.6. Forcing Chrome to Use Socks5 Proxy</a></li>
+<li><a href="#sec-6-7">6.7. OpenVPN over Shadowsocks</a></li>
+<li><a href="#sec-6-8">6.8. Graceful shutdown and restart</a></li>
+<li><a href="#sec-6-9">6.9. Change Server on the Fly</a></li>
+<li><a href="#sec-6-10">6.10. Ban Brute Force Crackers</a></li>
+<li><a href="#sec-6-11">6.11. Block Connection to localhost</a></li>
+</ul>
+</li>
+<li><a href="#sec-7">7. 其他信息</a>
+<ul>
+<li><a href="#sec-7-1">7.1. Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 前言</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+基本内容是来自 <a href="https://github.com/shadowsocks/shadowsocks/wiki">shadowsocks的wiki</a> 。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Shadowsocks 使用说明</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+一个可穿透防火墙的快速代理。
+</p>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 服务器</h3>
+<div class="outline-text-3" id="text-2-1">
+</div><div id="outline-container-sec-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1"><span class="section-number-4">2.1.1</span> 安装</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<p>
+Debian / Ubuntu:
+</p>
+<div class="highlight"><pre>apt-get install python-pip
+pip install shadowsocks
+</pre></div>
+
+<p>
+CentOS:
+</p>
+<div class="highlight"><pre>yum install python-setuptools <span class="o">&amp;&amp;</span> easy_install pip
+pip install shadowsocks
+</pre></div>
+
+<p>
+Windows:
+</p>
+
+<p>
+Server deployment on Windows is discouraged, since the select API performs very poor. If you want to serve many users, you should always set up your server on Linux. Please visit README for more details.
+</p>
+
+<ol class="org-ol">
+<li>Download and install Python for Windows, you can download x86-64 MSI installer in 64bit Windows.
+</li>
+<li>During installation you should install pip
+</li>
+</ol>
+
+
+<figure>
+<p><img src="images/0b91b9fa-9650-11e4-9782-44526d25f2fa.png" alt="0b91b9fa-9650-11e4-9782-44526d25f2fa.png">
+</p>
+</figure>
+
+<ol class="org-ol">
+<li>Install <a href="https://slproweb.com/products/Win32OpenSSL.html">OpenSSL for Windows</a> . If you installed 64bit Python, you should install 64bit OpenSSL.
+</li>
+<li>Install shadowsocks like Linux. In Command Prompt, type command line
+</li>
+</ol>
+
+<pre class="example">
+pip install shadowsocks
+</pre>
+
+<ol class="org-ol">
+<li>If you want to use <code>salsa20</code> or <code>chacha20</code> encryption, download <a href="http://download.libsodium.org/libsodium/releases/">libsodium</a> and put dll files (without path) into <code>C:\Windows\System32</code> or <code>C:\Windows\SysWOW64</code> (32bit Python on 64bit Windows).
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-1-2" class="outline-4">
+<h4 id="sec-2-1-2"><span class="section-number-4">2.1.2</span> 使用</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<pre class="example">
+ssserver -p 443 -k password -m rc4-md5
+</pre>
+
+<p>
+如果要后台运行:
+</p>
+<pre class="example">
+sudo ssserver -p 443 -k password -m rc4-md5 --user nobody -d start
+</pre>
+
+<p>
+如果要停止:
+</p>
+<pre class="example">
+sudo ssserver -d stop
+</pre>
+
+<p>
+如果要检查日志：
+</p>
+<pre class="example">
+sudo less /var/log/shadowsocks.log
+</pre>
+
+<p>
+用 <code>-h</code> 查看所有参数。你也可以使用 <a href="#sec:cvcf">配置文件</a> 进行配置。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 服务器搭建</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+建议选择 Ubuntu 14.04 LTS 作为服务器以便使用 <a href="#sec:tcp_fast_open">TCP Fast Open</a> 。除非有明确理由，不建议用对新手不友好的 CentOS。
+</p>
+
+<p>
+为了更好的性能，VPS 尽量选择 XEN 或 KVM，不要使用 OpenVZ。推荐使用以下 VPS：
+</p>
+
+<ul class="org-ul">
+<li>Digital Ocean 自带的内核无需自己编译模块即可使用 hybla 算法
+</li>
+<li>Linode 功能强大，机房较多
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 客户端</h3>
+<div class="outline-text-3" id="text-2-3">
+</div><div id="outline-container-sec-2-3-1" class="outline-4">
+<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> Windows</h4>
+<div class="outline-text-4" id="text-2-3-1">
+</div><div id="outline-container-sec-2-3-1-1" class="outline-5">
+<h5 id="sec-2-3-1-1"><span class="section-number-5">2.3.1.1</span> 功能</h5>
+<div class="outline-text-5" id="text-2-3-1-1">
+<ol class="org-ol">
+<li>系统代理设置
+</li>
+<li>PAC 模式和全局模式
+</li>
+<li><a href="https://github.com/gfwlist/gfwlist">GFWList</a> 和用户规则
+</li>
+<li>支持 HTTP 代理
+</li>
+<li>支持多服务器切换
+</li>
+<li>支持 UDP 代理
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-1-2" class="outline-5">
+<h5 id="sec-2-3-1-2"><span class="section-number-5">2.3.1.2</span> 下载</h5>
+<div class="outline-text-5" id="text-2-3-1-2">
+<p>
+下载 <a href="https://github.com/shadowsocks/shadowsocks-csharp/releases">最新版</a> 。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-1-3" class="outline-5">
+<h5 id="sec-2-3-1-3"><span class="section-number-5">2.3.1.3</span> 基本使用</h5>
+<div class="outline-text-5" id="text-2-3-1-3">
+<ol class="org-ol">
+<li>在任务栏找到 Shadowsocks 图标
+</li>
+<li>在 服务器 菜单添加多个服务器
+</li>
+<li>选择 <code>启用系统代理</code> 来启用系统代理。请禁用浏览器里的代理插件，或把它们设置为使用系统代理。
+</li>
+<li>除了设为系统代理，你也可以直接自己配置浏览器代理。在 SwitchyOmega 中把代理设置为 SOCKS5 或 HTTP 的 127.0.0.1:1080。这个 1080 端口可以在服务器设置中设置。
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-1-4" class="outline-5">
+<h5 id="sec-2-3-1-4"><span class="section-number-5">2.3.1.4</span> PAC</h5>
+<div class="outline-text-5" id="text-2-3-1-4">
+<ol class="org-ol">
+<li>可以编辑 PAC 文件来修改 PAC 设置。Shadowsocks 会监听文件变化，修改后会自动生效。
+</li>
+<li>你也可以从 GFWList （由第三方维护）更新 PAC 文件。
+</li>
+<li>你也可以使用在线 PAC URL
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-1-5" class="outline-5">
+<h5 id="sec-2-3-1-5"><span class="section-number-5">2.3.1.5</span> 服务器自动切换</h5>
+<div class="outline-text-5" id="text-2-3-1-5">
+<ol class="org-ol">
+<li>负载均衡：随机选择服务器
+</li>
+<li>高可用：根据延迟和丢包率自动选择服务器
+</li>
+<li>累计丢包率：通过定时 ping 来测速和选择。如果要使用本功能，请打开菜单里的统计可用性。
+</li>
+<li>也可以实现 IStrategy 接口来自定义切换规则，然后给我们发一个 pull request。
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-1-6" class="outline-5">
+<h5 id="sec-2-3-1-6"><span class="section-number-5">2.3.1.6</span> UDP</h5>
+<div class="outline-text-5" id="text-2-3-1-6">
+<p>
+对于 UDP，请使用 SocksCap 或 ProxyCap 强制你想使用的程序走代理。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-1-7" class="outline-5">
+<h5 id="sec-2-3-1-7"><span class="section-number-5">2.3.1.7</span> 多实例</h5>
+<div class="outline-text-5" id="text-2-3-1-7">
+<p>
+如果想使用其它工具如 SwitchyOmega 管理多个服务器，可以启动多个 Shadowsocks。 为了避免配置产生冲突，把 Shadowsocks 复制到一个新目录里，并给它设置一个新的本地端口。
+</p>
+
+<p>
+另外在 SwitchyOmega 中需要使用 SOCKS5 代理，因为 HTTP 代理还是只会启动一个。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-1-8" class="outline-5">
+<h5 id="sec-2-3-1-8"><span class="section-number-5">2.3.1.8</span> 绿色模式</h5>
+<div class="outline-text-5" id="text-2-3-1-8">
+<p>
+如果你想把所有临时文件放在 shadowsocks/temp 目录而不是系统的 temp 目录， 可以在 shadowsocks 所在目录创建一个 shadowsocks_portable_mode.txt 文件。
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-3-2" class="outline-4">
+<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> OS X</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<p>
+为 OS X 10.8+ 设计的 Shadowsocks 图形界面，启动后可自动实现全局翻墙，并根据 GFWList 区分墙内外流量。
+</p>
+</div>
+
+<div id="outline-container-sec-2-3-2-1" class="outline-5">
+<h5 id="sec-2-3-2-1"><span class="section-number-5">2.3.2.1</span> 下载</h5>
+<div class="outline-text-5" id="text-2-3-2-1">
+<p>
+<a href="https://sourceforge.net/projects/shadowsocksgui/"><a href="https://sourceforge.net/projects/shadowsocksgui/">https://sourceforge.net/projects/shadowsocksgui/</a></a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-2-2" class="outline-5">
+<h5 id="sec-2-3-2-2"><span class="section-number-5">2.3.2.2</span> 基本使用</h5>
+<div class="outline-text-5" id="text-2-3-2-2">
+<ol class="org-ol">
+<li>解压后移动到合适目录下，然后启动。
+</li>
+<li>如果弹出系统安全提示，请选「允许」。
+</li>
+<li>Shadowsocks 会自动设置为全局 PAC 代理，Chrome、Safari、Twitter 都可以正常使用了。
+</li>
+<li>如果你开启了其它翻墙工具，请先将它们关闭。如果你使用了 Chrome 扩展程序 SwitchySharp，请把它的模式设置为「使用系统代理设置」。
+</li>
+<li>启动后可以在菜单栏右边找到 Shadowsocks 图标。
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3-2-3" class="outline-5">
+<h5 id="sec-2-3-2-3"><span class="section-number-5">2.3.2.3</span> 高级使用</h5>
+<div class="outline-text-5" id="text-2-3-2-3">
+<ol class="org-ol">
+<li>如果你不想用全局 PAC 代理，想配合 SwitchySharp 等插件使用，可在菜单栏图标里点关闭 Shadowsocks。关闭后代理仍会运行在 127.0.0.1:1080 上，代理类型为 SOCKS v5。之所以不叫关闭 PAC，因为很多人不懂什么是 PAC。写关闭 Shadowsocks 更容易理解。
+</li>
+<li>默认使用公共服务器，可以在菜单栏图标里配置自定义服务器。
+</li>
+<li>切换服务器后，因为 Chrome 保持长连接，可能需要重启浏览器才能生效。也可以重启 ShadowsocksX 来强制 Chrome 重新连接。
+</li>
+<li>可以在菜单里点 编辑 PAC 来修改 PAC 文件，文件保存后会自动通知浏览器重新加载。推荐用 Xcode 等代码编辑器来编辑。如果用系统自带的文本编辑器，引号可能自动半角变全角，需要撤销一下回到半角。
+</li>
+<li>可以在菜单栏图标里打开控制台查看日志，其中 ShadowsocksX: 开头的是 Shadowsocks 的日志。
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-3" class="outline-4">
+<h4 id="sec-2-3-3"><span class="section-number-4">2.3.3</span> Android</h4>
+<div class="outline-text-4" id="text-2-3-3">
+<p>
+<a href="https://github.com/shadowsocks/shadowsocks-android"><a href="https://github.com/shadowsocks/shadowsocks-android">https://github.com/shadowsocks/shadowsocks-android</a></a>
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3-4" class="outline-4">
+<h4 id="sec-2-3-4"><span class="section-number-4">2.3.4</span> openwrt</h4>
+<div class="outline-text-4" id="text-2-3-4">
+<p>
+<a href="https://github.com/shadowsocks/openwrt-shadowsocks"><a href="https://github.com/shadowsocks/openwrt-shadowsocks">https://github.com/shadowsocks/openwrt-shadowsocks</a></a>
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Ports and Clients</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> windows</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>Shadowsocks client for Windows  <a href="https://github.com/shadowsocks/shadowsocks-csharp"><a href="https://github.com/shadowsocks/shadowsocks-csharp">https://github.com/shadowsocks/shadowsocks-csharp</a></a> 
+</li>
+<li>Powered by Qt   <a href="https://github.com/librehat/shadowsocks-qt5"><a href="https://github.com/librehat/shadowsocks-qt5">https://github.com/librehat/shadowsocks-qt5</a></a>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> OS X</h3>
+<div class="outline-text-3" id="text-3-2">
+<dl class="org-dl">
+<dt> Shadowsocks client for Mac </dt><dd><a href="https://github.com/shadowsocks/shadowsocks-iOS/"><a href="https://github.com/shadowsocks/shadowsocks-iOS/">https://github.com/shadowsocks/shadowsocks-iOS/</a></a>
+</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> Linux / Server side</h3>
+<div class="outline-text-3" id="text-3-3">
+<ul class="org-ul">
+<li>Python version  <a href="https://github.com/shadowsocks/shadowsocks"><a href="https://github.com/shadowsocks/shadowsocks">https://github.com/shadowsocks/shadowsocks</a></a> 
+</li>
+<li>C libev version  <a href="https://github.com/shadowsocks/shadowsocks-libev"><a href="https://github.com/shadowsocks/shadowsocks-libev">https://github.com/shadowsocks/shadowsocks-libev</a></a>
+</li>
+<li>Go version  <a href="https://github.com/shadowsocks/shadowsocks-go"><a href="https://github.com/shadowsocks/shadowsocks-go">https://github.com/shadowsocks/shadowsocks-go</a></a>
+</li>
+<li>Qt GUI client frontend  <a href="https://github.com/librehat/shadowsocks-qt5"><a href="https://github.com/librehat/shadowsocks-qt5">https://github.com/librehat/shadowsocks-qt5</a></a>
+</li>
+<li>Python Tornado version  <a href="https://github.com/thomashuang/Fukei"><a href="https://github.com/thomashuang/Fukei">https://github.com/thomashuang/Fukei</a></a>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> iOS</h3>
+<div class="outline-text-3" id="text-3-4">
+<ul class="org-ul">
+<li>Recommended for jailbroken devices, global proxy with no restriction <a href="https://github.com/linusyang/MobileShadowSocks"><a href="https://github.com/linusyang/MobileShadowSocks">https://github.com/linusyang/MobileShadowSocks</a></a>
+</li>
+<li>All devices, web browser, global proxy with some restrictions <a href="https://github.com/shadowsocks/shadowsocks-iOS"><a href="https://github.com/shadowsocks/shadowsocks-iOS">https://github.com/shadowsocks/shadowsocks-iOS</a></a>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="section-number-3">3.5</span> Android</h3>
+<div class="outline-text-3" id="text-3-5">
+<ul class="org-ul">
+<li>shadowsocks-android <a href="https://github.com/shadowsocks/shadowsocks-android"><a href="https://github.com/shadowsocks/shadowsocks-android">https://github.com/shadowsocks/shadowsocks-android</a></a>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-3-6" class="outline-3">
+<h3 id="sec-3-6"><span class="section-number-3">3.6</span> OpenWRT</h3>
+<div class="outline-text-3" id="text-3-6">
+<ul class="org-ul">
+<li>LuCI package for shadowsocks-libev <a href="https://github.com/shadowsocks/openwrt-shadowsocks"><a href="https://github.com/shadowsocks/openwrt-shadowsocks">https://github.com/shadowsocks/openwrt-shadowsocks</a></a>
+</li>
+</ul>
+
+
+<p>
+<a id="sec:optimizing_shadowsocks" name="sec:optimizing_shadowsocks"></a>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Optimizing Shadowsocks</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+If you see a lot of <code>error: too many open files</code> in your log, you should optimize your system. This tutorial applies to all shadowsocks servers (Python, libev, etc).
+</p>
+
+<p>
+On Debian 7:
+</p>
+
+<p>
+Create <code>/etc/sysctl.d/local.conf</code> with the following content:
+</p>
+
+<pre class="example">
+# max open files
+fs.file-max = 51200
+# max read buffer
+net.core.rmem_max = 67108864
+# max write buffer
+net.core.wmem_max = 67108864
+# default read buffer
+net.core.rmem_default = 65536
+# default write buffer
+net.core.wmem_default = 65536
+# max processor input queue
+net.core.netdev_max_backlog = 4096
+# max backlog
+net.core.somaxconn = 4096
+
+# resist SYN flood attacks
+net.ipv4.tcp_syncookies = 1
+# reuse timewait sockets when safe
+net.ipv4.tcp_tw_reuse = 1
+# turn off fast timewait sockets recycling
+net.ipv4.tcp_tw_recycle = 0
+# short FIN timeout
+net.ipv4.tcp_fin_timeout = 30
+# short keepalive time
+net.ipv4.tcp_keepalive_time = 1200
+# outbound port range
+net.ipv4.ip_local_port_range = 10000 65000
+# max SYN backlog
+net.ipv4.tcp_max_syn_backlog = 4096
+# max timewait sockets held by system simultaneously
+net.ipv4.tcp_max_tw_buckets = 5000
+# turn on TCP Fast Open on both client and server side
+net.ipv4.tcp_fastopen = 3
+# TCP receive buffer
+net.ipv4.tcp_rmem = 4096 87380 67108864
+# TCP write buffer
+net.ipv4.tcp_wmem = 4096 65536 67108864
+# turn on path MTU discovery
+net.ipv4.tcp_mtu_probing = 1
+
+# for high-latency network
+net.ipv4.tcp_congestion_control = hybla
+
+# for low-latency network, use cubic instead
+# net.ipv4.tcp_congestion_control = cubic
+</pre>
+
+<p>
+Then:
+</p>
+<pre class="example">
+sysctl --system
+</pre>
+
+<p>
+Older system:
+</p>
+<pre class="example">
+sysctl -p /etc/sysctl.d/local.conf
+</pre>
+
+<p>
+Warning: <b>DO NOT ENABLE</b> <code>net.ipv4.tcp_tw_recycle</code> !!! See <a href="http://vincent.bernat.im/en/blog/2014-tcp-time-wait-state-linux.html">this article</a> .
+</p>
+
+<p>
+If you use Supervisor, Make sure you have the following line in <code>/etc/default/supervisor</code> . Once you added that line, restart Supervisor ( <code>service stop supervisor &amp;&amp; service start supervisor</code> ).
+</p>
+
+<pre class="example">
+ulimit -n 51200
+</pre>
+
+<p>
+If you run shadowsocks in the background in other ways, make sure to add <code>ulimit -n 51200</code> in your init script.
+</p>
+
+<p>
+After optimizing, a busy Shadowsocks server that handles thousands of connections, takes about 30MB memory and 10% CPU. Notice that at the same time, Linux kernel usually uses &gt;100MB RAM to hold buffer and cache for those connections. By using the sysctl config above, you are trading off RAM for speed. If you want to use less RAM, reduce the size of rmem and wmem.
+</p>
+
+
+<figure>
+<p><img src="images/2a18bc5a-fadf-11e3-96c3-473c42f1a3a3.png" alt="2a18bc5a-fadf-11e3-96c3-473c42f1a3a3.png">
+</p>
+<figcaption><span class="figure-number">Figure 2:</span> if_eth0-day</figcaption>
+</figure>
+
+
+<figure>
+<p><img src="images/2bf8662e-fadf-11e3-8039-3d59bf689fe2.png" alt="2bf8662e-fadf-11e3-8039-3d59bf689fe2.png">
+</p>
+<figcaption><span class="figure-number">Figure 3:</span> fw_conntrack-day</figcaption>
+</figure>
+
+
+<figure>
+<p><img src="images/53951d80-fadf-11e3-8e6b-0ceed96950e2.png" alt="53951d80-fadf-11e3-8e6b-0ceed96950e2.png">
+</p>
+<figcaption><span class="figure-number">Figure 4:</span> cpu-day</figcaption>
+</figure>
+
+
+<figure>
+<p><img src="images/87c98c08-fadf-11e3-9fc9-949f4061d2ca.png" alt="87c98c08-fadf-11e3-9fc9-949f4061d2ca.png">
+</p>
+<figcaption><span class="figure-number">Figure 5:</span> proc_mem-day</figcaption>
+</figure>
+
+
+<p>
+Before &amp; after:
+</p>
+
+<figure>
+<p><img src="images/10c34b04-f5d9-11e3-95fc-e38f5299c274.jpg" alt="10c34b04-f5d9-11e3-95fc-e38f5299c274.jpg">
+</p>
+<figcaption><span class="figure-number">Figure 6:</span> cc</figcaption>
+</figure>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Configuration</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+<a id="sec:cvcf" name="sec:cvcf"></a>
+</p>
+</div>
+<div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> Configuration via Config File</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+You can use a configuration file instead of command line arguments.
+</p>
+
+<p>
+Create a config file <code>/etc/shadowsocks.json</code> . Example:
+</p>
+
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="s2">&quot;my_server_ip&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;server_port&quot;</span><span class="p">:</span><span class="mi">8388</span><span class="p">,</span>
+    <span class="nt">&quot;local_address&quot;</span><span class="p">:</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;local_port&quot;</span><span class="p">:</span><span class="mi">1080</span><span class="p">,</span>
+    <span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="s2">&quot;mypassword&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="mi">300</span><span class="p">,</span>
+    <span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="s2">&quot;aes-256-cfb&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;fast_open&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>
+Explanation of the fields:
+</p>
+
+<table>
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Name</th>
+<th scope="col" class="left">Explantion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">server</td>
+<td class="left">the address your server listens</td>
+</tr>
+
+<tr>
+<td class="left">server_port</td>
+<td class="left">server port</td>
+</tr>
+
+<tr>
+<td class="left">local_address</td>
+<td class="left">the address your local listens</td>
+</tr>
+
+<tr>
+<td class="left">local_port</td>
+<td class="left">local port</td>
+</tr>
+
+<tr>
+<td class="left">password</td>
+<td class="left">password used for encryption</td>
+</tr>
+
+<tr>
+<td class="left">timeout</td>
+<td class="left">in seconds</td>
+</tr>
+
+<tr>
+<td class="left">method</td>
+<td class="left">default: "aes-256-cfb"</td>
+</tr>
+
+<tr>
+<td class="left">fast_open</td>
+<td class="left">use TCP_FASTOPEN, true / false</td>
+</tr>
+
+<tr>
+<td class="left">workers</td>
+<td class="left">number of workers, available on Unix/Linux</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+To run in the foreground:
+</p>
+<pre class="example">
+ssserver -c /etc/shadowsocks.json
+</pre>
+
+
+<p>
+To run in the background:
+</p>
+<pre class="example">
+ssserver -c /etc/shadowsocks.json -d start
+ssserver -c /etc/shadowsocks.json -d stop
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> Generate QR Code for Android or iOS Clients</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+Shadowsocks Android and iOS supports QR Code configuration.
+</p>
+
+<p>
+Update: now you can also scan QR code on Windows and OS X.
+</p>
+</div>
+
+<div id="outline-container-sec-5-2-1" class="outline-4">
+<h4 id="sec-5-2-1"><span class="section-number-4">5.2.1</span> Protocol</h4>
+<div class="outline-text-4" id="text-5-2-1">
+<p>
+You can encode your server configuration to a QR Code.
+</p>
+
+<ol class="org-ol">
+<li>Put your configuration together like this:
+</li>
+</ol>
+<pre class="example">
+method:password@hostname:port
+</pre>
+
+<ol class="org-ol">
+<li>Transform it into base64:
+</li>
+</ol>
+<pre class="example">
+bWV0aG9kOnBhc3N3b3JkQGhvc3RuYW1lOnBvcnQ=
+</pre>
+
+<ol class="org-ol">
+<li>Prepend with <code>ss://</code>
+</li>
+</ol>
+<pre class="example">
+ss://bWV0aG9kOnBhc3N3b3JkQGhvc3RuYW1lOnBvcnQ=
+</pre>
+
+<ol class="org-ol">
+<li>Generate a QR Code from the url above.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2-2" class="outline-4">
+<h4 id="sec-5-2-2"><span class="section-number-4">5.2.2</span> Generate via GUI clients</h4>
+<div class="outline-text-4" id="text-5-2-2">
+<p>
+You can also generate QR Codes from some GUI clients:
+</p>
+
+<ul class="org-ul">
+<li>Shadowsocks for Windows
+</li>
+<li>Shadowsocks for OS X
+</li>
+<li>Shadowsocks-Qt5
+</li>
+<li>Shadowsocks GUI
+</li>
+</ul>
+
+
+<figure>
+<p><img src="images/a345d9d4-51d6-11e4-94e8-a13a987567e7.png" alt="a345d9d4-51d6-11e4-94e8-a13a987567e7.png">
+</p>
+</figure>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-2-3" class="outline-4">
+<h4 id="sec-5-2-3"><span class="section-number-4">5.2.3</span> Generate via Command line</h4>
+<div class="outline-text-4" id="text-5-2-3">
+<pre class="example">
+pip install qrcode
+echo -n "ss://"`echo -n aes-256-cfb:password@1.2.3.4:8388 | base64` | qr
+</pre>
+
+
+<p>
+If you can't scan the code, try changing your terminal font.
+</p>
+
+
+
+<figure>
+<p><img src="images/6a41d15a-51e1-11e4-801a-424b5add2009.png" alt="6a41d15a-51e1-11e4-801a-424b5add2009.png">
+</p>
+</figure>
+
+
+
+
+<p>
+<a id="sec:cmu" name="sec:cmu"></a>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> Configure Multiple Users</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+Currently Python and Go servers support multiple users.
+</p>
+
+<p>
+You can use different passwords on different ports like this:
+</p>
+
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="nt">&quot;server&quot;</span><span class="p">:</span> <span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;port_password&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;8381&quot;</span><span class="p">:</span> <span class="s2">&quot;foobar1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;8382&quot;</span><span class="p">:</span> <span class="s2">&quot;foobar2&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;8383&quot;</span><span class="p">:</span> <span class="s2">&quot;foobar3&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;8384&quot;</span><span class="p">:</span> <span class="s2">&quot;foobar4&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+    <span class="nt">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;aes-256-cfb&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>
+If you want to build a user management system, check the <a href="#sec:manage_multiple_users">Manager API</a> .
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> Encryption</h3>
+<div class="outline-text-3" id="text-5-4">
+</div><div id="outline-container-sec-5-4-1" class="outline-4">
+<h4 id="sec-5-4-1"><span class="section-number-4">5.4.1</span> Supported Ciphers</h4>
+<div class="outline-text-4" id="text-5-4-1">
+<table>
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="left">
+
+<col  class="left">
+
+<col  class="left">
+
+<col  class="left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">&#xa0;</th>
+<th scope="col" class="left">Python</th>
+<th scope="col" class="left">libev</th>
+<th scope="col" class="left">Go</th>
+<th scope="col" class="left">node.js</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">OpenSSL (AES, etc)</td>
+<td class="left">Y</td>
+<td class="left">Y</td>
+<td class="left">Y</td>
+<td class="left">Y</td>
+</tr>
+
+<tr>
+<td class="left">RC4-MD5</td>
+<td class="left">Y</td>
+<td class="left">Y</td>
+<td class="left">Y</td>
+<td class="left">Y</td>
+</tr>
+
+<tr>
+<td class="left">Salsa20, Chacha20</td>
+<td class="left">Y</td>
+<td class="left">Y</td>
+<td class="left">N</td>
+<td class="left">N</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul class="org-ul">
+<li>aes-256-cfb: Default
+</li>
+<li>aes-128-cfb
+</li>
+<li>aes-192-cfb
+</li>
+<li>aes-256-ofb
+</li>
+<li>aes-128-ofb
+</li>
+<li>aes-192-ofb
+</li>
+<li>aes-128-ctr
+</li>
+<li>aes-192-ctr
+</li>
+<li>aes-256-ctr
+</li>
+<li>aes-128-cfb8
+</li>
+<li>aes-192-cfb8
+</li>
+<li>aes-256-cfb8
+</li>
+<li>aes-128-cfb1
+</li>
+<li>aes-192-cfb1
+</li>
+<li>aes-256-cfb1
+</li>
+<li>bf-cfb
+</li>
+<li>camellia-128-cfb
+</li>
+<li>camellia-192-cfb
+</li>
+<li>camellia-256-cfb
+</li>
+<li>cast5-cfb
+</li>
+<li>chacha20
+</li>
+<li>idea-cfb
+</li>
+<li>rc2-cfb
+</li>
+<li>rc4-md5
+</li>
+<li>salsa20
+</li>
+<li>seed-cfb
+</li>
+</ul>
+
+<p>
+Installing <code>M2Crypto</code> will make encryption a little faster.
+</p>
+
+<p>
+Debian:
+</p>
+<pre class="example">
+apt-get install python-m2crypto
+</pre>
+
+<p>
+CentOS:
+</p>
+<pre class="example">
+yum install m2crypto
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-5-4-2" class="outline-4">
+<h4 id="sec-5-4-2"><span class="section-number-4">5.4.2</span> rc4-md5</h4>
+<div class="outline-text-4" id="text-5-4-2">
+<p>
+rc4-md5 is a safe, fast encryption that use different key per connection. It is recommended for OpenWRT routers.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5-4-3" class="outline-4">
+<h4 id="sec-5-4-3"><span class="section-number-4">5.4.3</span> salsa20 and chacha20</h4>
+<div class="outline-text-4" id="text-5-4-3">
+<p>
+salsa20 and chacha20 are fast stream ciphers. Optimized salsa20 implementation on x86_64 is even 2x faster than rc4 (but slightly slower on ARM).
+</p>
+
+<p>
+Install <a href="https://github.com/jedisct1/libsodium">libsodium</a> &gt;= 1.0.0 if you want to use them.
+</p>
+
+<pre class="example">
+apt-get install build-essential
+wget https://github.com/jedisct1/libsodium/releases/download/1.0.1/libsodium-1.0.1.tar.gz
+tar xf libsodium-1.0.1.tar.gz &amp;&amp; cd libsodium-1.0.1
+./configure &amp;&amp; make -j2 &amp;&amp; make install
+ldconfig
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-5-4-4" class="outline-4">
+<h4 id="sec-5-4-4"><span class="section-number-4">5.4.4</span> Deprecated Ciphers</h4>
+<div class="outline-text-4" id="text-5-4-4">
+<p>
+These legacy ciphers are either slow or not safe. Do not use them:
+</p>
+
+<ul class="org-ul">
+<li>rc4
+</li>
+<li>des-cfb
+</li>
+<li>table
+</li>
+<li>salsa20-ctr
+</li>
+</ul>
+
+
+<p>
+<a id="sec:tcp_fast_open" name="sec:tcp_fast_open"></a>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-5-5" class="outline-3">
+<h3 id="sec-5-5"><span class="section-number-3">5.5</span> TCP Fast Open</h3>
+<div class="outline-text-3" id="text-5-5">
+<p>
+If both of your server and client are deployed on Linux 3.7+, you can turn on fast_open for lower latency.
+</p>
+
+<p>
+First set <code>fast_open</code> to <code>true</code> in your config.json.
+</p>
+
+<p>
+Then turn on fast open on your OS temporarily:
+</p>
+<pre class="example">
+echo 3 &gt; /proc/sys/net/ipv4/tcp_fastopen
+</pre>
+
+<p>
+To turn on fast open permanently, see <a href="#sec:optimizing_shadowsocks">Optimizing Shadowsocks</a> .
+</p>
+
+<p>
+Notice: only some versions support this feature.
+</p>
+
+<p>
+<a id="sec:workers" name="sec:workers"></a>
+</p>
+</div>
+</div>
+<div id="outline-container-sec-5-6" class="outline-3">
+<h3 id="sec-5-6"><span class="section-number-3">5.6</span> Using Workers</h3>
+<div class="outline-text-3" id="text-5-6">
+<p>
+Shadowsocks supports spawning child processes like nginx.
+</p>
+
+<p>
+You can use <code>--workers</code> to specify how many workers to use.
+</p>
+
+<p>
+This argument is only supported on Unix and ssserver.
+</p>
+
+<p>
+Currently UDP relay does not work well on multiple workers.
+</p>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Advanced Features</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+<a id="sec:manage_multiple_users" name="sec:manage_multiple_users"></a>
+</p>
+</div>
+<div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> Manage Multiple Users</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+If you want to build a user management system, Shadowsocks provides an API that allows you to add/remove ports on the fly, as well as get transfer statistics from Shadowsocks.
+</p>
+
+<p>
+If you simply want to add multiple users without changing them on the fly, you can check <a href="#sec:cmu">this tutorial</a> . 
+</p>
+
+<p>
+Notice: only Python and libev versions support this feature.
+</p>
+</div>
+
+<div id="outline-container-sec-6-1-1" class="outline-4">
+<h4 id="sec-6-1-1"><span class="section-number-4">6.1.1</span> Setup</h4>
+<div class="outline-text-4" id="text-6-1-1">
+<p>
+Enable manager API by specifying <code>--manager-address</code> , which is either a Unix socket or an IP address:
+</p>
+
+<pre class="example">
+# Use a Unix socket
+ssserver --manager-address /var/run/shadowsocks-manager.sock -c tests/server-multi-passwd.json
+# Use an IP address
+ssserver --manager-address 127.0.0.1:6001 -c tests/server-multi-passwd.json
+</pre>
+
+<p>
+For security reasons, you should use Unix sockets.
+</p>
+
+<p>
+When manager is enabled, <a href="#sec:workers">workers</a> and <a href="#sec:graceful_shutdown_and_restart">graceful restart are disabled</a> .
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-6-1-2" class="outline-4">
+<h4 id="sec-6-1-2"><span class="section-number-4">6.1.2</span> Protocol</h4>
+<div class="outline-text-4" id="text-6-1-2">
+<p>
+You can send UDP data to Shadowsocks.
+</p>
+<pre class="example">
+command[: JSON data]
+</pre>
+
+<p>
+To add a port:
+</p>
+<pre class="example">
+add: {"server_port": 8001, "password":"7cd308cc059"}
+</pre>
+
+<p>
+To remove a port:
+</p>
+<pre class="example">
+remove: {"server_port": 8001}
+</pre>
+
+<p>
+To receive a pong:
+</p>
+<pre class="example">
+ping
+</pre>
+
+<p>
+Shadowsocks will send back transfer statistics:
+</p>
+<pre class="example">
+stat: {"8001":11370}
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-6-1-3" class="outline-4">
+<h4 id="sec-6-1-3"><span class="section-number-4">6.1.3</span> Example Code</h4>
+<div class="outline-text-4" id="text-6-1-3">
+<p>
+Here's code that demonstrates how to talk to the Shadowsocks server:
+</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="n">cli</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_UNIX</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
+<span class="n">cli</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s">&#39;/tmp/client.sock&#39;</span><span class="p">)</span>  <span class="c"># address of the client</span>
+<span class="n">cli</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;/var/run/shadowsocks-manager.sock&#39;</span><span class="p">)</span>  <span class="c"># address of Shadowsocks manager</span>
+
+<span class="n">cli</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;ping&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">cli</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1506</span><span class="p">))</span>  <span class="c"># You&#39;ll receive &#39;pong&#39;</span>
+
+<span class="n">cli</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;add: {&quot;server_port&quot;:8001, &quot;password&quot;:&quot;7cd308cc059&quot;}&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">cli</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1506</span><span class="p">))</span>  <span class="c"># You&#39;ll receive &#39;ok&#39;</span>
+
+<span class="n">cli</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;remove: {&quot;server_port&quot;:8001}&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">cli</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1506</span><span class="p">))</span>  <span class="c"># You&#39;ll receive &#39;ok&#39;</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">cli</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1506</span><span class="p">))</span>  <span class="c"># when data is transferred on Shadowsocks, you&#39;ll receive stat info every 10 seconds</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> Securing Public Server</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+If you share your server with strangers, you need to be careful. The numbers used below are just examples.
+</p>
+
+<ol class="org-ol">
+<li><a href="#sec:optimizing_shadowsocks">Optimize your server</a>
+</li>
+<li>Limit bandwidth
+</li>
+</ol>
+<pre class="example">
+apt-get install wondershaper
+# limit bandwidth to 10Mb/10Mb on eth0
+wondershaper eth0 10000 10000
+</pre>
+
+<ol class="org-ol">
+<li>Limit connections
+</li>
+</ol>
+<pre class="example">
+iptables -A INPUT -p tcp --syn --dport ${SHADOWSOCKS_PORT} -m connlimit --connlimit-above 32 -j REJECT --reject-with tcp-reset
+</pre>
+
+<ol class="org-ol">
+<li>Prevent ssh password cracking
+</li>
+</ol>
+<pre class="example">
+apt-get install denyhosts
+</pre>
+
+<ol class="org-ol">
+<li><a href="#sec:ban_brute_force_crackers">Prevent Shadowsocks password cracking</a>
+</li>
+
+<li><a href="#sec:block_connection_to_localhost">Block connection to localhost</a>
+</li>
+
+<li>Run Shadowsocks server as nonroot user
+</li>
+</ol>
+<pre class="example">
+sudo useradd ssuser
+sudo ssserver [other options] --user ssuser
+</pre>
+
+<ol class="org-ol">
+<li>Block traffic to non-HTTP port
+</li>
+</ol>
+<pre class="example">
+iptables -t filter -m owner --uid-owner ssuser -A OUTPUT -p tcp --dport 80 -j ACCEPT
+iptables -t filter -m owner --uid-owner ssuser -A OUTPUT -p tcp --dport 443 -j ACCEPT
+iptables -t filter -m owner --uid-owner ssuser -A OUTPUT -p tcp -j REJECT --reject-with tcp-reset
+</pre>
+
+<ol class="org-ol">
+<li>Block BitTorrent trackers
+</li>
+</ol>
+<pre class="example">
+apt-get install nginx
+</pre>
+
+<p>
+Edit nginx configuration:
+</p>
+
+<pre class="example">
+server {
+    listen 0.0.0.0:3128;
+    resolver 8.8.8.8;
+    location / {
+        set $upstream_host $host;
+    if ($request_uri ~ "^/announce.*") {
+            return 403;
+        }
+        if ($request_uri ~ "^.*torrent.*") {
+            return 403;
+        }
+        proxy_set_header Host $upstream_host;
+        proxy_pass http://$upstream_host;
+        proxy_buffering off;
+    }
+}
+</pre>
+
+<p>
+Redirect 80 port to nginx:
+</p>
+<pre class="example">
+iptables -t nat -m owner --uid-owner ssuser -A OUTPUT -p tcp --dport 80 -j REDIRECT --to-port 3128
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-6-3" class="outline-3">
+<h3 id="sec-6-3"><span class="section-number-3">6.3</span> Convert Shadowsocks into an HTTP proxy</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+First run polipo with parent proxy set to Shadowsocks:
+</p>
+
+<pre class="example">
+apt-get install polipo
+service polipo stop
+polipo socksParentProxy=localhost:1080
+</pre>
+
+<p>
+Then you can play with the HTTP proxy:
+</p>
+<pre class="example">
+http_proxy=http://localhost:8123 apt-get update
+
+http_proxy=http://localhost:8123 curl www.google.com
+
+http_proxy=http://localhost:8123 wget www.google.com
+
+git config --global http.proxy 127.0.0.1:8123
+git clone https://github.com/xxx/xxx.git
+git xxx
+git xxx
+git config --global --unset-all http.proxy
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-6-4" class="outline-3">
+<h3 id="sec-6-4"><span class="section-number-3">6.4</span> Using Shadowsocks with Command Line Tools</h3>
+<div class="outline-text-3" id="text-6-4">
+<p>
+First, set up shadowsocks as usual. Suppose your local is running on 127.0.0.1:1080.
+</p>
+
+<p>
+Install <a href="http://proxychains.sourceforge.net/">proxychains</a> .
+</p>
+
+<p>
+On Debian/Ubuntu:
+</p>
+<pre class="example">
+apt-get install proxychains
+</pre>
+
+<p>
+On Mac OS X:
+</p>
+<pre class="example">
+brew install proxychains-ng
+</pre>
+
+<p>
+Make a config file at "~/.proxychains/proxychains.conf" with content:
+</p>
+
+<pre class="example">
+strict_chain
+proxy_dns 
+remote_dns_subnet 224
+tcp_read_time_out 15000
+tcp_connect_time_out 8000
+localnet 127.0.0.0/255.0.0.0
+quiet_mode
+
+[ProxyList]
+socks5  127.0.0.1 1080
+</pre>
+
+<p>
+Then run command with proxychains. Examples:
+</p>
+<pre class="example">
+proxychains4 curl https://www.twitter.com/
+proxychains4 git push origin master
+</pre>
+
+<p>
+Or just proxify bash:
+</p>
+<pre class="example">
+proxychains4 bash
+curl https://www.twitter.com/
+git push origin master
+</pre>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-6-5" class="outline-3">
+<h3 id="sec-6-5"><span class="section-number-3">6.5</span> Setup a Shadowsocks Relay</h3>
+<div class="outline-text-3" id="text-6-5">
+<p>
+If you want your client connected to a Japan VPS, but you want a US IP.
+</p>
+
+<pre class="example">
+Client &lt;--&gt; Japan VPS &lt;--&gt; US VPS
+</pre>
+</div>
+
+<div id="outline-container-sec-6-5-1" class="outline-4">
+<h4 id="sec-6-5-1"><span class="section-number-4">6.5.1</span> Easy version</h4>
+<div class="outline-text-4" id="text-6-5-1">
+<ol class="org-ol">
+<li>Setup Shadowsocks server as usual on US VPS.
+</li>
+<li>On Japan VPS, enable forwarding. Replace US_VPS_IP and JAPAN_VPS_IP with actual IP:
+</li>
+</ol>
+<pre class="example">
+sudo su
+echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+iptables -t nat -A PREROUTING -p tcp --dport 8388 -j DNAT --to-destination US_VPS_IP:8388
+iptables -t nat -A POSTROUTING -p tcp -d US_VPS_IP --dport 8388 -j SNAT --to-source JAPAN_VPS_IP
+</pre>
+
+<ol class="org-ol">
+<li>Set your server to JAPAN_VPS_IP:8388 on your client.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-6-5-2" class="outline-4">
+<h4 id="sec-6-5-2"><span class="section-number-4">6.5.2</span> Better version</h4>
+<div class="outline-text-4" id="text-6-5-2">
+<p>
+For those who want more control and better performance, use haproxy instead. You can also enable load balance by adding multiple servers.
+</p>
+
+<p>
+For Debian 7.0:
+On Japan VPS. Append the following line to <code>/etc/apt/sources.list</code>
+</p>
+
+<pre class="example">
+deb http://ftp.us.debian.org/debian/ wheezy-backports main
+</pre>
+
+<p>
+Run
+</p>
+<pre class="example">
+apt-get install haproxy
+</pre>
+
+<p>
+Edit <code>/etc/haproxy/haproxy.cfg</code>
+</p>
+<pre class="example">
+global
+        ulimit-n  51200
+
+defaults
+        log global
+        mode    tcp
+        option  dontlognull
+        contimeout 1000
+        clitimeout 150000
+        srvtimeout 150000
+
+frontend ss-in
+        bind *:8388
+        default_backend ss-out
+
+backend ss-out
+        server server1 US_VPS_IP:8388 maxconn 20480
+</pre>
+
+<p>
+Then run <code>haproxy -f /etc/haproxy/haproxy.cfg</code>
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-6-6" class="outline-3">
+<h3 id="sec-6-6"><span class="section-number-3">6.6</span> Forcing Chrome to Use Socks5 Proxy</h3>
+<div class="outline-text-3" id="text-6-6">
+<p>
+Launch chrome with the following arguments:
+</p>
+
+<pre class="example">
+/path/to/Chrome.exe --proxy-server="socks5://127.0.0.1:1080" --host-resolver-rules="MAP * 0.0.0.0 , EXCLUDE localhost"
+</pre>
+
+<p>
+Reference: <a href="http://www.chromium.org/developers/design-documents/network-stack/socks-proxy"><a href="http://www.chromium.org/developers/design-documents/network-stack/socks-proxy">http://www.chromium.org/developers/design-documents/network-stack/socks-proxy</a></a> .
+</p>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-6-7" class="outline-3">
+<h3 id="sec-6-7"><span class="section-number-3">6.7</span> OpenVPN over Shadowsocks</h3>
+<div class="outline-text-3" id="text-6-7">
+<p>
+Setup OpenVPN and Shadowsocks (Python / Node.js) on your server.
+</p>
+
+<p>
+Setup OpenVPN client and Shadowsocks(Python / Node.js) on your local machine.
+</p>
+
+<p>
+Connect Shadowsocks.
+</p>
+
+<p>
+Add these lines to your <code>.ovpn</code> file:
+</p>
+
+<pre class="example">
+socks-proxy 127.0.0.1 1080
+route SHADOWSOCKS_SERVER_IP 255.255.255.255 net_gateway
+</pre>
+
+<p>
+Then connect OpenVPN.
+</p>
+
+<p>
+Notice: only versions that support UDP relay support this feature.
+</p>
+
+
+<p>
+<a id="sec:graceful_shutdown_and_restart" name="sec:graceful_shutdown_and_restart"></a>
+</p>
+</div>
+</div>
+<div id="outline-container-sec-6-8" class="outline-3">
+<h3 id="sec-6-8"><span class="section-number-3">6.8</span> Graceful shutdown and restart</h3>
+<div class="outline-text-3" id="text-6-8">
+<p>
+Shadowsocks supports graceful shutdown like nginx.
+</p>
+
+<p>
+You can send <code>SIGQUIT</code> to sslocal or ssserver process. The process closes listening sockets but still serves alive connections, allowing you to start a new process on the same port. When all connections on the old process are closed, it will then exit.
+</p>
+
+<p>
+If you are using workers, send <code>SIGQUIT</code> to the master process.
+</p>
+
+<p>
+On Windows, please use <code>SIGTERM</code> instead.
+</p>
+
+<p>
+Notice: only some versions support this feature.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-6-9" class="outline-3">
+<h3 id="sec-6-9"><span class="section-number-3">6.9</span> Change Server on the Fly</h3>
+<div class="outline-text-3" id="text-6-9">
+<p>
+Some clients(Shadowsocks-GUI, ShadowsocksX, GoAgentX) support choosing between different server profiles.
+</p>
+
+<p>
+Notice due to Chrome's persistent connection to the proxy, you may need to force Chrome to reconnect to the proxy to connect to another Shadowsocks server. You can either restart your Shadowsocks client, or:
+</p>
+
+<ol class="org-ol">
+<li>Open chrome://net-internals/#sockets
+</li>
+<li>Click <code>Flush socket pools</code> .
+</li>
+</ol>
+
+
+<p>
+<a id="sec:ban_brute_force_crackers" name="sec:ban_brute_force_crackers"></a>
+</p>
+</div>
+</div>
+<div id="outline-container-sec-6-10" class="outline-3">
+<h3 id="sec-6-10"><span class="section-number-3">6.10</span> Ban Brute Force Crackers</h3>
+<div class="outline-text-3" id="text-6-10">
+<p>
+Shadowsocks 2.6.2+ output the IPs that try to brute force crack your password.
+</p>
+
+<p>
+You can use utils/autoban.py to ban them.
+</p>
+<pre class="example">
+python autoban.py &lt; /var/log/shadowsocks.log
+</pre>
+
+<p>
+Use <code>-c</code> to specify with how many failure times it should be considered as an attack. Default is 3.
+</p>
+
+<p>
+To continue watching for the log file:
+</p>
+
+<pre class="example">
+nohup tail -F /var/log/shadowsocks.log | python autoban.py &gt;log 2&gt;log &amp;
+</pre>
+
+<p>
+Use with caution. Avoid to ban yourself.
+</p>
+
+
+
+<p>
+<a id="sec:block_connection_to_localhost" name="sec:block_connection_to_localhost"></a>
+</p>
+</div>
+</div>
+<div id="outline-container-sec-6-11" class="outline-3">
+<h3 id="sec-6-11"><span class="section-number-3">6.11</span> Block Connection to localhost</h3>
+<div class="outline-text-3" id="text-6-11">
+<p>
+From 2.6.7, localhost is blocked by default. If you don't want it, use 
+</p>
+<pre class="example">
+--forbidden-ip=""
+</pre>
+
+<p>
+From 2.6.3, you can prevent the server from connecting to some IP like 127.0.0.1.
+</p>
+
+<pre class="example">
+ssserver -c /etc/shadowsocks.json --forbidden-ip 127.0.0.1,::1
+</pre>
+
+<p>
+Notice only IPv4 and IPv6 addresses are allowed. Blocking will be processed <b>after DNS</b> .
+</p>
+
+<p>
+This is because if a client tries to visit a hostname, like <code>localhost</code> or a domain name a user has pointed to <code>127.0.0.1</code> , it will be resolved into <code>127.0.0.1</code> or <code>::1</code> . Thus it will still get blocked.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> 其他信息</h2>
+<div class="outline-text-2" id="text-7">
+</div><div id="outline-container-sec-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> Troubleshooting</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+出现问题时，可以按下列步骤确定和诊断问题：
+</p>
+
+<ol class="org-ol">
+<li>先确定是本地的问题，还是服务端的问题。可以通过更换服务端（比如用别人的或者公共服务器），更换本地端（比如分别用手机和电脑测试）。
+</li>
+<li>查看本地端的日志来诊断本地端有没有收到浏览器的请求。如果本地端没有收到请求，检查浏览器代理设置，检查本地防火墙。如果日志中只有 IP 没有域名，确保你配置浏览器远程解析域名，否则本地需要做防 DNS 污染。
+</li>
+<li>查看服务端的日志来诊断服务端有没有收到本地端发来的请求。如果服务端没有收到请求，检查服务器防火墙，在本地用 tcping 等端口扫描工具检查服务器端口有没有打开。尝试更换 IP 或端口。
+</li>
+<li>如果服务端收到了请求，但浏览器没有载入内容，检查服务端的 DNS <code>/etc/resolv.conf</code> ，改为 <code>8.8.8.8</code> 再重启服务端。
+</li>
+<li>如果服务端速度慢，可能无良 ISP 做了 QoS，更换端口到 <code>80 25 443 995 3389</code> 等常用端口再测试。
+</li>
+<li>如果服务端启动时提示权限问题，可能是系统限制了 &lt;1024 端口权限，用 iptables 做转发即可 
+</li>
+</ol>
+<pre class="example">
+iptables -t nat -A PREROUTING -p tcp --dport 995 -j REDIRECT --to-ports 8387
+</pre>
+<ol class="org-ol">
+<li>如果访问特定的网站有问题，打开浏览器开发者工具网络部分，看一下哪个请求卡住了，然后在服务器上尝试用 ping curl 等工具检查这个请求的 URL 和主机的联通性。并检查这个请求的 URL 是不是被你的 PAC 规则排除了。
+</li>
+</ol>
+
+<p>
+When you have problems, follow the steps below to diagnose:
+</p>
+
+<ol class="org-ol">
+<li>Check whether the problem is caused by client or server. Replace your server with public server and check again; replace your client with others like mobile or another client version.
+</li>
+<li>Check client logs to see if the client received requests from your browser. If the client did not receive any requests, check proxy settings and local firewall.
+</li>
+<li>Check server logs to see if the server received requests from your client. If the server did not receive any requests, check server firewall and use <code>tcping</code> to check server port.
+</li>
+<li>If the server received requests but your browser got no responses, check the DNS on your server. Change it into <code>8.8.8.8</code> , restart your server and test again.
+</li>
+<li>If the server is slow, change your server port into common port like <code>80 25 443 995 3389</code> .
+</li>
+<li>If you see Permission Denied when server starts, use iptables to redirect ports1024 
+</li>
+</ol>
+<pre class="example">
+iptables -t nat -A PREROUTING -p tcp --dport 995 -j REDIRECT --to-ports 8387
+</pre>
+
+<ol class="org-ol">
+<li>If you have connection problem only to a specific website, open developer console and check which request block the loading process. Check its url and hostname, and use ping curl to check connectivity from your server to that url and hostname. Also check if this URL is bypassed by your PAC.
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 原shadowsocks团队</p>
+<p class="date">Created: 2015-09-06 日 13:30</p>
+<p class="creator">编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
